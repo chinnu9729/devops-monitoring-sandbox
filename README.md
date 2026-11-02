@@ -50,5 +50,15 @@ Ubuntu EC2 Instance
 
 Restrict access to trusted IP addresses using AWS Security Groups.
 
+## Project Screenshots
+
+The `screenshots/` folder contains:
+- Prometheus CPU usage
+- Prometheus memory usage
+- Grafana Node Exporter dashboard
+- Prometheus alert rules
+- AWS EC2 instance status
+- Alertmanager test alert
+
 ## Conclusion
 Successfully implemented a centralized monitoring and alerting sandbox using open-source DevOps tools on AWS EC2.
