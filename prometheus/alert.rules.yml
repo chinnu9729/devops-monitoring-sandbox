@@ -1,0 +1,30 @@
+groups:
+  - name: server-alerts
+    rules:
+
+      - alert: HighCPUUsage
+        expr: 100 * (1 - avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: High CPU usage detected
+          description: CPU usage is above 80% for more than 2 minutes.
+
+      - alert: HighDiskUsage
+        expr: 100 * (1 - node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}) > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: High disk usage detected
+          description: Root filesystem usage is above 80%.
+
+      - alert: MonitoringTargetDown
+        expr: up{job=~"prometheus|node"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Monitoring target is down
+          description: A Prometheus monitoring target is unavailable.
